@@ -1,47 +1,60 @@
 #include "jenner.h"
 #include <QKeyEvent>
 
-Jenner::Jenner(int x, int y) {
-    setPos(x, y);
+Jenner::Jenner() {
+    x = 200;
+    y = 200;
 
-    // Cargar sprite (cámbialo por el tuyo)
-    setPixmap(QPixmap(":/sprites/jenner.png"));
+    setFlag(QGraphicsItem::ItemIsFocusable); // ← correcto
+    hojaSprite.load("./sprites_completos_2.png");
 
-    // Necesario para recibir el teclado
-    setFlag(QGraphicsItem::ItemIsFocusable);
-    setFocus();
+    sprites = hojaSprite.copy(spriteX, spriteY, spriteAncho, spriteAlto);
+    setPixmap(sprites);
 }
 
-void Jenner::keyPressEvent(QKeyEvent *event) {
-    int paso = 10;  // velocidad de movimiento
-
-    int nx = x();
-    int ny = y();
-
-    // Movimiento simple con flechas o WASD
+void Jenner::keyPressEvent(QKeyEvent *event)
+{
     switch (event->key()) {
-    case Qt::Key_Up:
-    case Qt::Key_W:
-        ny -= paso;
-        break;
-
-    case Qt::Key_Down:
-    case Qt::Key_S:
-        ny += paso;
-        break;
-
-    case Qt::Key_Left:
     case Qt::Key_A:
-        nx -= paso;
+        movimiento(-5,0);
+        confSprite(128);
         break;
-
-    case Qt::Key_Right:
     case Qt::Key_D:
-        nx += paso;
+        movimiento(5,0);
+        confSprite(64);
         break;
+    case Qt::Key_W:
+        movimiento(0,-5);
+        confSprite(192);
+        break;
+    case Qt::Key_S:
+        movimiento(0,5);
+        confSprite(0);
+        break;
+    default:
+        QGraphicsItem::keyPressEvent(event);
     }
 
-    // Limites básicos (ajústalos al tamaño de tu escena)
-    if (nx >= 0 && nx <= 750) setX(nx);
-    if (ny >= 0 && ny <= 550) setY(ny);
+}
+
+void Jenner::movimiento(int dx, int dy)
+{
+    if (x>595){
+        x = 595;
+    }
+    x += dx;
+    y += dy;
+    setPos(x, y);
+
+}
+
+void Jenner::confSprite(int dir)
+{
+    spriteY = dir;
+    spriteX = spriteAncho*cont;
+    sprites = hojaSprite.copy(spriteX, spriteY, spriteAncho, spriteAlto);
+    setPixmap(sprites);
+    cont ++;
+    if (cont == 2){cont = 0;}
+
 }
