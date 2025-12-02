@@ -1,15 +1,27 @@
 #include "viruslineal.h"
+#include <QPixmap>
 
-VirusLineal::VirusLineal(qreal xI, qreal yI)
-    : Entidad(xI, yI)
+VirusLineal::VirusLineal()
 {
-    hojaSprite.load("./virus_lineal.png");
-    spriteActual = hojaSprite.copy(spriteX, spriteY, spriteAncho, spriteAlto);
-    setPixmap(spriteActual);
+    setPixmap(QPixmap("./VirusLineal.png").scaled(70,70));
+
+    x = 1500;
+    y = 200;
+    setPos(x, y);
+
+    velocidad = 4;
+
+    timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, &VirusLineal::mover);
+    timer->start(30);
 }
 
-void VirusLineal::actualizar()
+void VirusLineal::mover()
 {
-    x -= 3;  // movimiento recto hacia la izquierda
+    x -= velocidad;
     setPos(x, y);
+
+    // Reaparece a la derecha cuando sale del mapa
+    if (x < -100)
+        x = 2500;
 }

@@ -2,15 +2,17 @@
 #define VIRUSLINEAL_H
 
 #include "entidad.h"
+#include <QTimer>
 
 class VirusLineal : public Entidad
 {
     Q_OBJECT
-
 public:
-    VirusLineal(qreal xI, qreal yI);
+    explicit VirusLineal();
+    void mover() override;
 
-    void actualizar() override;
+private:
+    QTimer *timer;
 };
 
 #endif // VIRUSLINEAL_H

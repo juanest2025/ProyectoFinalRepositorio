@@ -2,22 +2,19 @@
 #define VIRUSSENOIDAL_H
 
 #include "entidad.h"
+#include <QTimer>
 
 class VirusSenoidal : public Entidad
 {
     Q_OBJECT
+public:
+    explicit VirusSenoidal();
+    void mover() override;
 
 private:
-    qreal amplitud;
-    qreal frecuencia;
+    QTimer *timer;
+    qreal tiempo;
     qreal yBase;
-
-public:
-    VirusSenoidal(qreal xI, qreal yI,
-                  qreal A = 40,
-                  qreal F = 0.05);
-
-    void actualizar() override;
 };
 
 #endif // VIRUSSENOIDAL_H

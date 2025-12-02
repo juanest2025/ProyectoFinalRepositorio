@@ -1,12 +1,6 @@
 #include "entidad.h"
 
-Entidad::Entidad(qreal xI, qreal yI, QObject *parent)
-    : QObject(parent), x(xI), y(yI)
+Entidad::Entidad(QObject *parent)
+    : QObject(parent), velocidad(5), x(0), y(0)
 {
-    // Timer para movimiento
-    timerMovimiento = new QTimer(this);
-    connect(timerMovimiento, &QTimer::timeout, this, &Entidad::actualizar);
-    timerMovimiento->start(30); // 33 FPS aprox
-
-    setPos(x, y);
 }

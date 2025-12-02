@@ -1,23 +1,35 @@
 #include "virussenoidal.h"
+#include <QPixmap>
 #include <QtMath>
 
-VirusSenoidal::VirusSenoidal(qreal xI, qreal yI,
-                             qreal A, qreal F)
-    : Entidad(xI, yI),
-      amplitud(A),
-      frecuencia(F)
+VirusSenoidal::VirusSenoidal()
 {
-    yBase = y;  // posición original
+    setPixmap(QPixmap("./VirusSenoidal.png").scaled(70,70));
 
-    hojaSprite.load("./virus_senoidal.png");
-    spriteActual = hojaSprite.copy(spriteX, spriteY, spriteAncho, spriteAlto);
-    setPixmap(spriteActual);
-}
+    x = 1800;
+    yBase = 250;
+    y = yBase;
 
-void VirusSenoidal::actualizar()
-{
-    x -= 3;  
-    y = yBase + amplitud * qSin(frecuencia * x);
+    tiempo = 0;
 
     setPos(x, y);
+
+    velocidad = 3;
+
+    timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, &VirusSenoidal::mover);
+    timer->start(30);
+}
+
+void VirusSenoidal::mover()
+{
+    x -= velocidad;
+
+    tiempo += 0.15;
+    y = yBase + qSin(tiempo) * 80;
+
+    setPos(x, y);
+
+    if (x < -100)
+        x = 2600;
 }
