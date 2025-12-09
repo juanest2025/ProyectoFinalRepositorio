@@ -1,4 +1,4 @@
-#include "virussenoidal.h"
+#include "virusverticalsenoidal.h"
 #include "fragmento.h"
 #include "global.h"
 #include "jenner.h"
@@ -7,55 +7,55 @@
 #include <QGraphicsScene>
 #include <QGraphicsItem>
 
-VirusSenoidal::VirusSenoidal(int xo, int yo, int limI, int limS)
-    : angulo(0), amplitud(30), limiteI(limI), limiteS(limS)
+VirusVerticalSenoidal::VirusVerticalSenoidal(int xo, int yo, int limLeft, int limRight)
+    : angulo(0), amplitud(20), direccionY(1), limiteI(limLeft), limiteS(limRight)
 {
     setPixmap(QPixmap("./VirusSenoidal.png").scaled(70,70));
     x = xo;
     y = yo;
-    yInicial = yo;
     setPos(x, y);
 
     velocidad = 2;
 
     timer = new QTimer(this);
-    connect(timer, &QTimer::timeout, this, &VirusSenoidal::mover);
+    connect(timer, &QTimer::timeout, this, &VirusVerticalSenoidal::mover);
     timer->start(30);
 
     timerDisparo = new QTimer(this);
-    connect(timerDisparo, &QTimer::timeout, this, &VirusSenoidal::disparar);
-    timerDisparo->start(1200);
+    connect(timerDisparo, &QTimer::timeout, this, &VirusVerticalSenoidal::disparar);
+    timerDisparo->start(1100);
 }
 
-VirusSenoidal::~VirusSenoidal()
+VirusVerticalSenoidal::~VirusVerticalSenoidal()
 {
     if (timer) timer->stop();
     if (timerDisparo) timerDisparo->stop();
 }
 
-void VirusSenoidal::mover()
+void VirusVerticalSenoidal::mover()
 {
     if (!movimientoActivo) return;
 
-    x -= velocidad;
-    y = yInicial + qSin(angulo) * amplitud;
-    angulo += 0.15;
+    y += direccionY * velocidad;
 
-    if (x < limiteI) {
-        x = limiteS;
-        y = yInicial;
-    }
+    if (y <= 0) direccionY = 1;
+    if (y >= 600) direccionY = -1;
+
+    x += qSin(angulo) * amplitud;
+    angulo += 0.12;
+
     setPos(x, y);
+
+    if (x < limiteI) x = limiteS;
 }
 
-
-void VirusSenoidal::disparar()
+void VirusVerticalSenoidal::disparar()
 {
     if (!movimientoActivo) return;
     if (!jugador2) return;
 
     qreal d = distanciaA(static_cast<QGraphicsItem*>(jugador2));
-    if (d > 200) return;  // Solo dispara si está a menos de 300 unidades
+    if (d > 200) return;  // Este virus dispara a menor distancia
 
     int direccion = (jugador2->pos().x() < pos().x()) ? -1 : 1;
 
@@ -63,3 +63,4 @@ void VirusSenoidal::disparar()
     Fragmento *f = new Fragmento(direccion, pos().x(), pos().y() + 20, this);
     if (scene()) scene()->addItem(f);
 }
+

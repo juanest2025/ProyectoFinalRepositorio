@@ -8,13 +8,20 @@ class VirusSenoidal : public Entidad
 {
     Q_OBJECT
 public:
-    explicit VirusSenoidal();
+    VirusSenoidal(int xo = 1500, int yo = 300, int limI = -100, int limS = 2500);
+    ~VirusSenoidal();
+
     void mover() override;
+    void disparar();
 
 private:
     QTimer *timer;
-    qreal tiempo;
-    qreal yBase;
+    QTimer *timerDisparo;
+    double angulo;
+    double amplitud;
+    int limiteI;
+    int limiteS;
+    qreal yInicial;
 };
 
 #endif // VIRUSSENOIDAL_H
