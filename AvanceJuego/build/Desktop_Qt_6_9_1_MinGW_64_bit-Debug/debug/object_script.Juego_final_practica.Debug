@@ -1,0 +1,15 @@
+debug/Global.o
+debug/Jenner.o
+debug/fragmento.o
+debug/main.o
+debug/mainwindow.o
+debug/viruslineal.o
+debug/virussenoidal.o
+debug/virusverticalsenoidal.o
+debug/moc_Jenner.o
+debug/moc_entidad.o
+debug/moc_fragmento.o
+debug/moc_mainwindow.o
+debug/moc_viruslineal.o
+debug/moc_virussenoidal.o
+debug/moc_virusverticalsenoidal.o

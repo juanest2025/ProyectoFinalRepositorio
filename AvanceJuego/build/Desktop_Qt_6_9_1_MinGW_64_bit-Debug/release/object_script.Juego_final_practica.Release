@@ -1,0 +1,15 @@
+release/Global.o
+release/Jenner.o
+release/fragmento.o
+release/main.o
+release/mainwindow.o
+release/viruslineal.o
+release/virussenoidal.o
+release/virusverticalsenoidal.o
+release/moc_Jenner.o
+release/moc_entidad.o
+release/moc_fragmento.o
+release/moc_mainwindow.o
+release/moc_viruslineal.o
+release/moc_virussenoidal.o
+release/moc_virusverticalsenoidal.o
