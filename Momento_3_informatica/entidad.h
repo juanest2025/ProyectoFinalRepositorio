@@ -9,7 +9,7 @@ class Entidad : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
-    explicit Entidad(QObject *parent = nullptr)
+    Entidad(QObject *parent = nullptr)
         : QObject(parent), velocidad(0), x(0), y(0), movimientoActivo(true) {}
 
     virtual ~Entidad() = default;
@@ -17,7 +17,6 @@ public:
 
     void activarMovimiento(bool activo) { movimientoActivo = activo; }
 
-    // distancia a cualquier QGraphicsItem (seguro y genérico)
     qreal distanciaA(QGraphicsItem *otro) {
         if (!otro) return std::numeric_limits<qreal>::infinity();
         return QLineF(this->pos(), otro->pos()).length();
@@ -31,3 +30,5 @@ protected:
 };
 
 #endif // ENTIDAD_H
+
+

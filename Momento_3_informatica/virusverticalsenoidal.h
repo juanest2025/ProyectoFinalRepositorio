@@ -8,7 +8,7 @@ class VirusVerticalSenoidal : public Entidad
 {
     Q_OBJECT
 public:
-    VirusVerticalSenoidal(int xo = 2200, int yo = 100, int limLeft = -100, int limRight = 2500);
+    VirusVerticalSenoidal(int xo = 2200, int yo = 100, int limLeft = 0, int limRight = 2500);
     ~VirusVerticalSenoidal();
 
     void mover() override;
@@ -25,3 +25,4 @@ private:
 };
 
 #endif // VIRUSVERTICALSENOIDAL_H
+

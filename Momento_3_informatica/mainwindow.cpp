@@ -39,6 +39,14 @@ MainWindow::MainWindow(QWidget *parent)
     ui->graphicsView->setResizeAnchor(QGraphicsView::NoAnchor);
     ui->graphicsView->setTransformationAnchor(QGraphicsView::NoAnchor);
 
+    scene->removeItem(mensajeInicial);  // Quitar mensaje de la pantalla
+    delete mensajeInicial;
+    mensajeInicial = nullptr;
+
+    // Aquí activamos el juego
+    juegoPausado = false;
+
+
     // jugador (jenner)
     jugador = new Jenner;
     jugador2 = jugador;  // global
@@ -61,6 +69,7 @@ MainWindow::MainWindow(QWidget *parent)
     labelVida->setText(QString("❤️ VIDA: %1/100").arg(jugador->getVida()));
     labelVida->setGeometry(10, 10, 150, 40);
     labelVida->raise();
+
 
     // grupo 1 de virus
     grupo1 << new VirusLineal(500, 10,    0, 1000)
@@ -110,6 +119,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     hospital1->setPixmap(h1);
     hospital1->setPos(1200, 90); // dentro sección 2
+    //hospital1->setData(0, "obstaculo");
+    hospital1->setData(0, "hospital1");
 
     scene->addItem(hospital1);
 
@@ -125,6 +136,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     hospital2->setPixmap(h2);
     hospital2->setPos(1600, 300); // posición distinta
+   // hospital2->setData(0, "obstaculo");
+    hospital2->setData(0, "hospital2");
 
     scene->addItem(hospital2);
 
@@ -136,6 +149,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     hospital3->setPixmap(h3);
     hospital3->setPos(2000, 500); // otro lugar
+    //hospital3->setData(0, "obstaculo");
+    hospital3->setData(0, "hospital3");
 
     scene->addItem(hospital3);
 
@@ -155,7 +170,10 @@ MainWindow::MainWindow(QWidget *parent)
     pixF = pixF.scaled(400, 250, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
     factory->setPixmap(pixF);
-    factory->setPos(3000, 300);   // ← posición segura
+    //factory->setData(0, "obstaculo");
+    factory->setData(0, "fabrica");
+
+    factory->setPos(3400, 300);   // ← posición segura
 
     scene->addItem(factory);
 
@@ -195,6 +213,7 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
 
 // colisiones
 void MainWindow::verificarColisiones()
@@ -246,7 +265,11 @@ void MainWindow::verificarColisiones()
             });
         }
     }
+
+
 }
+
+
 
 // actualizar hud
 void MainWindow::actualizarVida(int vidaActual)
@@ -273,5 +296,4 @@ void MainWindow::gameOver()
 
     QMessageBox::critical(this, "GAME OVER", "¡Jenner ha muerto!\n\nVida: 0/100");
 }
-
 

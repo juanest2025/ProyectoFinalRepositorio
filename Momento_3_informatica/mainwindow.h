@@ -6,6 +6,7 @@
 #include <QList>
 #include <QLabel>
 #include <QTimer>
+#include <QGraphicsTextItem>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -20,6 +21,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    QGraphicsTextItem *mensajeInicial = nullptr;
+    QGraphicsRectItem *mensajeInicialFondo = nullptr;
+    bool juegoPausado = false;
 
 private slots:
     void verificarColisiones();
@@ -33,11 +37,13 @@ private:
     QList<Entidad*> grupo2;
     QList<Entidad*> grupo3;
 
+
     Jenner *jugador;
     QLabel *labelVida;
+    QLabel *labelHospitales;
+    int hospitalesVisitados = 0;
     QTimer *timerColisiones;
     QTimer *timerInvulnerabilidad;
 };
 
 #endif // MAINWINDOW_H
-

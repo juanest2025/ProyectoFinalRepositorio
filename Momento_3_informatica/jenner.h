@@ -1,3 +1,4 @@
+
 #ifndef JENNER_H
 #define JENNER_H
 
@@ -5,12 +6,13 @@
 #include <QObject>
 #include <QPixmap>
 #include <QKeyEvent>
+class MainWindow;
 
 class Jenner : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
-    explicit Jenner();
+    Jenner();
     void keyPressEvent(QKeyEvent *event) override;
     void movimiento(int dx, int dy);
     void confSprite(int dir);
@@ -26,6 +28,7 @@ public:
 signals:
     void vidaCambiada(int vidaActual);
     void murio();
+    void pedirQuitarMensajeInicial();
 
 private:
     qreal x;
@@ -37,6 +40,13 @@ private:
     QPixmap hojaSprite;
     QPixmap sprites;
     int cont;
+    bool hospital1Visitado = false;
+    bool hospital2Visitado = false;
+    bool hospital3Visitado = false;
+
+    bool caminoDesbloqueado = false;
+    bool mensajeInicialMostrado = false;
+    bool mensajeFabricaMostrado = false;
 
     // Variables de vida
     int vida;
@@ -45,3 +55,4 @@ private:
 };
 
 #endif // JENNER_H
+

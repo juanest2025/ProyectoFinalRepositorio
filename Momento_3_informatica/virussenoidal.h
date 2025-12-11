@@ -8,7 +8,7 @@ class VirusSenoidal : public Entidad
 {
     Q_OBJECT
 public:
-    VirusSenoidal(int xo = 1500, int yo = 300, int limI = -100, int limS = 2500);
+    VirusSenoidal(int xo = 1500, int yo = 300, int limI = 0, int limS = 2500);
     ~VirusSenoidal();
 
     void mover() override;

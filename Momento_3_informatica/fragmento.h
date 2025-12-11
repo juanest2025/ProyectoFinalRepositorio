@@ -9,7 +9,7 @@ class Fragmento : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
-    explicit Fragmento(int dir, qreal posX, qreal posY, QObject *parent = nullptr);
+    Fragmento(int dir, qreal posX, qreal posY, QObject *parent = nullptr);
     ~Fragmento();
 
 private slots:
@@ -28,3 +28,6 @@ private:
 };
 
 #endif // FRAGMENTO_H
+
+
+

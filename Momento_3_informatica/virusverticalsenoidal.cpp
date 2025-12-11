@@ -59,7 +59,7 @@ void VirusVerticalSenoidal::disparar()
 
     int direccion = (jugador2->pos().x() < pos().x()) ? -1 : 1;
 
-    // Crear fragmento con trayectoria parabólica
+    // Crear fragmento
     Fragmento *f = new Fragmento(direccion, pos().x(), pos().y() + 20, this);
     if (scene()) scene()->addItem(f);
 }

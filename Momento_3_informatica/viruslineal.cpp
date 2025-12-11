@@ -24,7 +24,7 @@ VirusLineal::VirusLineal(int Xo, int Yo, int limiteInferior, int limiteSuperior)
 
     timerDisparo = new QTimer(this);
     connect(timerDisparo, &QTimer::timeout, this, &VirusLineal::disparar);
-    timerDisparo->start(900); // comprobar cada 900 ms
+    timerDisparo->start(900);
 }
 
 VirusLineal::~VirusLineal()

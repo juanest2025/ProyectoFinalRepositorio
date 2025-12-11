@@ -23,3 +23,4 @@ private:
 };
 
 #endif // VIRUSLINEAL_H
+

@@ -63,3 +63,4 @@ void VirusSenoidal::disparar()
     Fragmento *f = new Fragmento(direccion, pos().x(), pos().y() + 20, this);
     if (scene()) scene()->addItem(f);
 }
+
